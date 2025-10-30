@@ -30,6 +30,7 @@ public class Film {
     public Film() {
     }
 
+    @SuppressWarnings("PMD.ExcessiveParameterList")
     public Film(int id, String name, String description, int releaseYear, int genreId, int minimalAge, int durationInMinutes, int fileId) {
         this.id = id;
         this.name = name;
@@ -41,6 +42,7 @@ public class Film {
         this.fileId = fileId;
     }
 
+    @SuppressWarnings("PMD.ExcessiveParameterList")
     public Film(int id, String name, String description, int releaseYear, int genreId, int minimalAge, int durationInMinutes, int fileId, Genre genre) {
         this.id = id;
         this.name = name;
