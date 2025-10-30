@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments/header :: header('Кинотеатр')}"><title>Фильм</title></head>
+<body>
+<div th:replace="~{fragments/navigation :: navigation}"></div>
+<div class="container">
+    <div class="mt-3">
+        <!-- Убрали форму и th:object -->
+
+        <div class="row mb-3">
+            <div class="col-3">
+                <div class="mb-3">
+                    <img th:src="@{/files/{fileId}(fileId=${film.fileId})}" class="w-100" alt="No image" src="">
+                </div>
+            </div>
+
+            <div class="col-9">
+                <!-- Название (только чтение) -->
+                <div class="mb-3">
+                    <label class="form-label"><b>Название</b></label>
+                    <div class="form-control" style="background-color: #f8f9fa; border: none;"
+                        th:text="${film.name}">
+                    </div>
+                </div>
+
+                <!-- Год (только чтение) -->
+                <div class="mb-3">
+                    <label class="form-label"><b>Год</b></label>
+                    <div class="form-control" style="background-color: #f8f9fa; border: none;"
+                        th:text="${film.releaseYear}">
+                    </div>
+                </div>
+
+                <!-- ID Жанра (только чтение) -->
+                <div class="mb-3">
+                    <label class="form-label"><b>ID Жанра</b></label>
+                    <div class="form-control" style="background-color: #f8f9fa; border: none;"
+                        th:text="${film.genre != null ? film.genre.name : 'Жанр не найден'}">
+                    </div>
+                </div>
+
+                <!-- Минимальный возраст (только чтение) -->
+                <div class="mb-3">
+                    <label class="form-label"><b>Минимальный возраст</b></label>
+                    <div class="form-control" style="background-color: #f8f9fa; border: none;"
+                        th:text="${film.minimalAge}">
+                    </div>
+                </div>
+
+                <!-- Длительность (только чтение) -->
+                <div class="mb-3">
+                    <label class="form-label"><b>Длительность (в минутах)</b></label>
+                    <div class="form-control" style="background-color: #f8f9fa; border: none;"
+                        th:text="${film.durationInMinutes}">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Описание (только чтение) -->
+        <div class="mb-3">
+            <label class="form-label"><b>Описание</b></label>
+            <div class="form-control" style="background-color: #f8f9fa; border: none; min-height: 120px;"
+                th:text="${film.description}">
+            </div>
+        </div>
+
+        <div class="mb-3 row">
+            <div class="col-6"></div>
+            <div class="col-6">
+                <div class="row">
+                    <div class="col-6">
+                        <a class="btn btn-light w-100" th:href="@{/films}">Вернуться в кинотеку</a>
+                    </div>
+                    <div class="col-6">
+                        <a class="btn btn-primary w-100" th:href="@{/sessions}">Выбрать сеанс</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="~{fragments/footer :: footer}"></div>
+</body>
+</html>

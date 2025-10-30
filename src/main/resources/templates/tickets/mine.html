@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments/header :: header('Кинотеатр')}"><title>Мои билеты</title></head>
+<body>
+<div th:replace="~{fragments/navigation :: navigation}"></div>
+<div class="container">
+    <div class="row">
+        <h3>Мои билеты</h3>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Фильм</th>
+                <th scope="col">Сеанс</th>
+                <th scope="col">Место</th>
+                <th scope="col">Ряд</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="item: ${tickets}">
+                <td th:text="${item.ticket.id}"></td>
+                <td th:text="${item.film.name}"></td>
+                <td th:text="${#temporals.format(item.session.startTime, 'dd.MM.yyyy HH:mm')}"></td>
+                <td th:text="${item.ticket.placeNumber}"></td>
+                <td th:text="${item.ticket.rowNumber}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div th:replace="~{fragments/footer :: footer}"></div>
+</body>
+</html>

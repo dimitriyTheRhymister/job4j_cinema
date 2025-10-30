@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments/header :: header('Кинотеатр')}"><title>Сеансы</title></head>
+<body>
+<div th:replace="~{fragments/navigation :: navigation}"></div>
+<div class="container">
+    <div class="row">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Начало</th>
+                <th scope="col">Конец</th>
+                <th scope="col">Зал</th>
+                <th scope="col">Фильм</th>
+                <th scope="col">Цена</th>
+                <th scope="col">Действие</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="filmSession: ${sessions}">
+                <td th:text="${filmSession.id}"></td>
+                <td th:text="${#temporals.format(filmSession.startTime, 'dd.MM.yyyy HH:mm')}"></td>
+                <td th:text="${#temporals.format(filmSession.endTime, 'dd.MM.yyyy HH:mm')}"></td>
+                <td th:text="${filmSession.hallId}"> <!-- Замени на название зала --></td>
+                <td th:text="${filmSession.film != null ? filmSession.film.name : 'Фильм не найден'}"></td>
+                <td th:text="${filmSession.price}"></td>
+                <td>
+                    <a class="btn btn-primary" th:href="@{/tickets/buy(sessionId=${filmSession.id})}">Купить билет</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div th:replace="~{fragments/footer :: footer}"></div>
+</body>
+</html>

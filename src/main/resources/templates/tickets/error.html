@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments/header :: header('Кинотеатр')}"><title>Ошибка покупки</title></head>
+<body>
+<div th:replace="~{fragments/navigation :: navigation}"></div>
+<div class="container">
+    <div class="row">
+        <div class="col-12 text-center">
+            <h3 class="mt-5">Ошибка при покупке билета</h3>
+            <p class="text-danger">Не удалось приобрести билет на заданное место. Вероятно оно уже занято.</p>
+            <p>Перейдите на страницу бронирования билетов и попробуйте снова.</p>
+            <a class="btn btn-primary mt-3" th:href="@{/sessions}">Вернуться к расписанию</a>
+        </div>
+    </div>
+</div>
+<div th:replace="~{fragments/footer :: footer}"></div>
+</body>
+</html>
