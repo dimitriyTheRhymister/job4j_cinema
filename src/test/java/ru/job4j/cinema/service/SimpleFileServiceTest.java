@@ -83,14 +83,20 @@ class SimpleFileServiceTest {
  * @see #save_WhenDirectoryCreationFails_ShouldThrowRuntimeException()
  */
     void save_WhenDirectoryCreationFails_ShouldThrowRuntimeException() {
-        String invalidPath = "Z:\\invalid\\path\\that\\does\\not\\exist\\and\\has\\invalid\\drive\\";
+        String invalidPath;
+        if (System.getProperty("os.name").toLowerCase().contains("win")) {
+            invalidPath = "Z:\\invalid\\path\\that\\does\\not\\exist\\and\\has\\invalid\\drive\\";
+        } else {
+            invalidPath = "/proc/self/invalid_cannot_create";
+        }
+
         fileService.setUploadPath(invalidPath);
 
         RuntimeException exception = assertThrows(RuntimeException.class,
                 () -> fileService.save(testFileDto));
 
         assertTrue(exception.getMessage().contains("Failed to create directory"));
-        verify(fileRepository, never()).save(any(File.class));
+        verify(fileRepository, never()).save(any(ru.job4j.cinema.model.File.class));
     }
 
     @Test
