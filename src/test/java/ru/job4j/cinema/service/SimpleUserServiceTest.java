@@ -6,7 +6,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import ru.job4j.cinema.model.User;
-import ru.job4j.cinema.repository.UserRepository;
+import ru.job4j.cinema.repository.user.UserRepository;
+import ru.job4j.cinema.service.user.SimpleUserService;
 
 import java.util.Optional;
 

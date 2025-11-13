@@ -6,7 +6,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import ru.job4j.cinema.model.Ticket;
-import ru.job4j.cinema.repository.TicketRepository;
+import ru.job4j.cinema.repository.ticket.TicketRepository;
+import ru.job4j.cinema.service.ticket.SimpleTicketService;
 
 import java.util.Collection;
 import java.util.List;

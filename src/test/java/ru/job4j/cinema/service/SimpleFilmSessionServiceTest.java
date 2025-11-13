@@ -7,8 +7,9 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import ru.job4j.cinema.model.Film;
 import ru.job4j.cinema.model.FilmSession;
-import ru.job4j.cinema.repository.FilmRepository;
-import ru.job4j.cinema.repository.FilmSessionRepository;
+import ru.job4j.cinema.repository.film.FilmRepository;
+import ru.job4j.cinema.repository.session.FilmSessionRepository;
+import ru.job4j.cinema.service.session.SimpleFilmSessionService;
 
 import java.time.LocalDateTime;
 import java.util.Collection;

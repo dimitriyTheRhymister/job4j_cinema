@@ -9,6 +9,7 @@ import org.sql2o.converters.ConverterException;
 import org.sql2o.quirks.NoQuirks;
 import org.sql2o.quirks.Quirks;
 import ru.job4j.cinema.model.FilmSession;
+import ru.job4j.cinema.repository.session.Sql2oFilmSessionRepository;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;

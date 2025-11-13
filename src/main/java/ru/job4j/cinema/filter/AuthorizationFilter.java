@@ -27,7 +27,7 @@ public class AuthorizationFilter extends HttpFilter {
         HttpSession session = request.getSession(false);
         var userLoggedIn = session != null && session.getAttribute("user") != null;
 
-        if (isTicketPurchase(uri) && !userLoggedIn) {
+        if (isProtectedResource(uri) && !userLoggedIn) {
             var loginPageUrl = request.getContextPath() + "/users/login";
             response.sendRedirect(loginPageUrl);
             return;
@@ -47,7 +47,7 @@ public class AuthorizationFilter extends HttpFilter {
                 || uri.equals("/index");
     }
 
-    private boolean isTicketPurchase(String uri) {
-        return uri.startsWith("/tickets/buy");
+    private boolean isProtectedResource(String uri) {
+        return uri.startsWith("/tickets/buy") || uri.startsWith("/tickets/mine");
     }
 }

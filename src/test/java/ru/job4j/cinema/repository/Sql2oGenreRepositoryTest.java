@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.sql2o.Sql2o;
 import ru.job4j.cinema.model.Genre;
+import ru.job4j.cinema.repository.genre.Sql2oGenreRepository;
 
 import java.util.Optional;
 

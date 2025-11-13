@@ -3,10 +3,11 @@ package ru.job4j.cinema.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import ru.job4j.cinema.service.FilmService;
-import ru.job4j.cinema.service.FilmSessionService;
-import ru.job4j.cinema.service.HallService;
-import ru.job4j.cinema.service.TicketService;
+import ru.job4j.cinema.model.User;
+import ru.job4j.cinema.service.film.FilmService;
+import ru.job4j.cinema.service.session.FilmSessionService;
+import ru.job4j.cinema.service.hall.HallService;
+import ru.job4j.cinema.service.ticket.TicketService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
@@ -44,42 +45,41 @@ public class TicketController {
     }
 
     @PostMapping("/buy")
-    public String buyTicket(@RequestParam int sessionId, @RequestParam int rowNumber, @RequestParam int placeNumber, Model model, jakarta.servlet.http.HttpServletRequest request) {
+    public String buyTicket(@RequestParam int sessionId, @RequestParam int rowNumber, @RequestParam int placeNumber,
+                            Model model, HttpServletRequest request) {
         var session = request.getSession();
-        var user = (ru.job4j.cinema.model.User) session.getAttribute("user");
-        if (user == null) {
-            return "redirect:/users/login";
+        var user = (User) session.getAttribute("user");
+
+        var filmSession = filmSessionService.findById(sessionId);
+        if (filmSession.isEmpty()) {
+            model.addAttribute("message", "Сеанс не найден");
+            return "tickets/error";
         }
 
-        try {
-            var isReserved = ticketService.reserveTicket(sessionId, rowNumber, placeNumber, user.getId());
-            if (isReserved) {
-                var filmSession = filmSessionService.findById(sessionId).orElseThrow(() -> new RuntimeException("Session not found"));
-                var film = filmService.findById(filmSession.getFilmId()).orElseThrow(() -> new RuntimeException("Film not found"));
+        var film = filmService.findById(filmSession.get().getFilmId());
+        if (film.isEmpty()) {
+            model.addAttribute("message", "Фильм не найден");
+            return "tickets/error";
+        }
 
-                model.addAttribute("placeNumber", placeNumber);
-                model.addAttribute("rowNumber", rowNumber);
-                model.addAttribute("filmSession", filmSession);
-                model.addAttribute("film", film);
+        var isReserved = ticketService.reserveTicket(sessionId, rowNumber, placeNumber, user.getId());
+        if (isReserved) {
+            model.addAttribute("placeNumber", placeNumber);
+            model.addAttribute("rowNumber", rowNumber);
+            model.addAttribute("filmSession", filmSession.get());
+            model.addAttribute("film", film.get());
 
-                return "tickets/success";
-            } else {
-                model.addAttribute("message", "Не удалось приобрести билет на заданное место. Вероятно оно уже занято.");
-                return "tickets/error";
-            }
-        } catch (Exception exception) {
-            model.addAttribute("message", exception.getMessage());
-            return "errors/404";
+            return "tickets/success";
+        } else {
+            model.addAttribute("message", "Не удалось приобрести билет на заданное место. Вероятно оно уже занято.");
+            return "tickets/error";
         }
     }
 
     @GetMapping("/mine")
     public String getUserTickets(Model model, HttpServletRequest request) {
         var session = request.getSession();
-        var user = (ru.job4j.cinema.model.User) session.getAttribute("user");
-        if (user == null) {
-            return "redirect:/users/login";
-        }
+        var user = (User) session.getAttribute("user");
 
         var tickets = ticketService.findByUserId(user.getId());
         var ticketsWithDetails = new ArrayList<Map<String, Object>>();

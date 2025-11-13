@@ -5,11 +5,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.sql2o.Sql2o;
 import ru.job4j.cinema.model.User;
+import ru.job4j.cinema.repository.user.Sql2oUserRepository;
 
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class Sql2oUserRepositoryTest {
 
@@ -66,11 +66,6 @@ class Sql2oUserRepositoryTest {
     }
 
     @Test
-    /**
- * Тестирует сценарий: корректность возвращаемых данных при save new user_then returns user with id
- * 
- * @see #whenSaveNewUser_thenReturnsUserWithId()
- */
     void whenSaveNewUser_thenReturnsUserWithId() {
         var user = new User(0, "Alice Brown", "alice.brown@example.com", "alicepass");
 
@@ -84,25 +79,15 @@ class Sql2oUserRepositoryTest {
     }
 
     @Test
-    /**
- * Тестирует сценарий: обработку исключения при save user with existing email_then throw exception
- * 
- * @see #whenSaveUserWithExistingEmail_thenThrowException()
- */
-    void whenSaveUserWithExistingEmail_thenThrowException() {
+    void whenSaveUserWithExistingEmail_thenReturnEmpty() {
         var user = new User(0, "Duplicate User", "john.doe@example.com", "differentpass");
 
-        assertThatThrownBy(() -> userRepository.save(user))
-                .isInstanceOf(Exception.class)
-                .hasMessageContaining("Unique index or primary key violation");
+        Optional<User> result = userRepository.save(user);
+
+        assertThat(result).isEmpty();
     }
 
     @Test
-    /**
- * Тестирует сценарий: успешное выполнение при find by email and password exists_then return user
- * 
- * @see #whenFindByEmailAndPasswordExists_thenReturnUser()
- */
     void whenFindByEmailAndPasswordExists_thenReturnUser() {
         Optional<User> found = userRepository.findByEmailAndPassword("john.doe@example.com", "password123");
 
@@ -115,44 +100,24 @@ class Sql2oUserRepositoryTest {
     }
 
     @Test
-    /**
- * Тестирует сценарий: поведение с пустыми данными при find by email and password wrong email_then return empty
- * 
- * @see #whenFindByEmailAndPasswordWrongEmail_thenReturnEmpty()
- */
     void whenFindByEmailAndPasswordWrongEmail_thenReturnEmpty() {
         Optional<User> found = userRepository.findByEmailAndPassword("wrong@example.com", "password123");
         assertThat(found).isEmpty();
     }
 
     @Test
-    /**
- * Тестирует сценарий: поведение с пустыми данными при find by email and password wrong password_then return empty
- * 
- * @see #whenFindByEmailAndPasswordWrongPassword_thenReturnEmpty()
- */
     void whenFindByEmailAndPasswordWrongPassword_thenReturnEmpty() {
         Optional<User> found = userRepository.findByEmailAndPassword("john.doe@example.com", "wrongpassword");
         assertThat(found).isEmpty();
     }
 
     @Test
-    /**
- * Тестирует сценарий: поведение с пустыми данными при find by email and password both wrong_then return empty
- * 
- * @see #whenFindByEmailAndPasswordBothWrong_thenReturnEmpty()
- */
     void whenFindByEmailAndPasswordBothWrong_thenReturnEmpty() {
         Optional<User> found = userRepository.findByEmailAndPassword("wrong@example.com", "wrongpassword");
         assertThat(found).isEmpty();
     }
 
     @Test
-    /**
- * Тестирует сценарий: save multiple users_then all have unique ids
- * 
- * @see #whenSaveMultipleUsers_thenAllHaveUniqueIds()
- */
     void whenSaveMultipleUsers_thenAllHaveUniqueIds() {
         var user1 = userRepository.save(new User(0, "User One", "user1@example.com", "pass1"));
         var user2 = userRepository.save(new User(0, "User Two", "user2@example.com", "pass2"));
@@ -168,11 +133,6 @@ class Sql2oUserRepositoryTest {
     }
 
     @Test
-    /**
- * Тестирует сценарий: find by email and password_then case sensitive
- * 
- * @see #whenFindByEmailAndPassword_thenCaseSensitive()
- */
     void whenFindByEmailAndPassword_thenCaseSensitive() {
         Optional<User> foundLowercase = userRepository.findByEmailAndPassword("john.doe@example.com", "password123");
         Optional<User> foundUppercase = userRepository.findByEmailAndPassword("JOHN.DOE@EXAMPLE.COM", "password123");
@@ -182,11 +142,6 @@ class Sql2oUserRepositoryTest {
     }
 
     @Test
-    /**
- * Тестирует сценарий: save user_then can find by email and password
- * 
- * @see #whenSaveUser_thenCanFindByEmailAndPassword()
- */
     void whenSaveUser_thenCanFindByEmailAndPassword() {
         var newUser = new User(0, "New User", "new.user@example.com", "newpass123");
         userRepository.save(newUser);
@@ -200,11 +155,6 @@ class Sql2oUserRepositoryTest {
     }
 
     @Test
-    /**
- * Тестирует сценарий: поведение с пустыми данными при save user with empty fields_then success
- * 
- * @see #whenSaveUserWithEmptyFields_thenSuccess()
- */
     void whenSaveUserWithEmptyFields_thenSuccess() {
         var user = new User(0, "", "empty@example.com", "");
 
@@ -217,11 +167,6 @@ class Sql2oUserRepositoryTest {
     }
 
     @Test
-    /**
- * Тестирует сценарий: поведение с пустыми данными при find by email and password with null values_then return empty
- * 
- * @see #whenFindByEmailAndPasswordWithNullValues_thenReturnEmpty()
- */
     void whenFindByEmailAndPasswordWithNullValues_thenReturnEmpty() {
         Optional<User> foundNullEmail = userRepository.findByEmailAndPassword(null, "password123");
         Optional<User> foundNullPassword = userRepository.findByEmailAndPassword("john.doe@example.com", null);
@@ -233,11 +178,6 @@ class Sql2oUserRepositoryTest {
     }
 
     @Test
-    /**
- * Тестирует сценарий: user properties are accessible_then success
- * 
- * @see #whenUserPropertiesAreAccessible_thenSuccess()
- */
     void whenUserPropertiesAreAccessible_thenSuccess() {
         Optional<User> user = userRepository.findByEmailAndPassword("john.doe@example.com", "password123");
 
@@ -259,11 +199,6 @@ class Sql2oUserRepositoryTest {
     }
 
     @Test
-    /**
- * Тестирует сценарий: поведение с пустыми данными при database is empty_then find by email returns empty
- * 
- * @see #whenDatabaseIsEmpty_thenFindByEmailReturnsEmpty()
- */
     void whenDatabaseIsEmpty_thenFindByEmailReturnsEmpty() {
         clearTables();
 
@@ -272,11 +207,6 @@ class Sql2oUserRepositoryTest {
     }
 
     @Test
-    /**
- * Тестирует сценарий: save and find_then data consistent
- * 
- * @see #whenSaveAndFind_thenDataConsistent()
- */
     void whenSaveAndFind_thenDataConsistent() {
         var originalUser = new User(0, "Test User", "test@example.com", "testpass");
 
@@ -293,11 +223,6 @@ class Sql2oUserRepositoryTest {
     }
 
     @Test
-    /**
- * Тестирует сценарий: save after pre inserted data_then id continues sequence
- * 
- * @see #whenSaveAfterPreInsertedData_thenIdContinuesSequence()
- */
     void whenSaveAfterPreInsertedData_thenIdContinuesSequence() {
         var newUser = userRepository.save(new User(0, "Fourth User", "fourth@example.com", "pass4"));
 
@@ -306,11 +231,6 @@ class Sql2oUserRepositoryTest {
     }
 
     @Test
-    /**
- * Тестирует сценарий: save user with long data_then success
- * 
- * @see #whenSaveUserWithLongData_thenSuccess()
- */
     void whenSaveUserWithLongData_thenSuccess() {
         String longName = "A".repeat(100);
         String longEmail = "email@" + "a".repeat(240) + ".com";
@@ -324,5 +244,21 @@ class Sql2oUserRepositoryTest {
         assertThat(savedUser.get().getFullName()).isEqualTo(longName);
         assertThat(savedUser.get().getEmail()).isEqualTo(longEmail);
         assertThat(savedUser.get().getPassword()).isEqualTo(longPassword);
+    }
+
+    @Test
+    void whenSaveMultipleUsersWithSameEmail_thenOnlyFirstSucceeds() {
+        var user1 = userRepository.save(new User(0, "First User", "same@example.com", "pass1"));
+        var user2 = userRepository.save(new User(0, "Second User", "same@example.com", "pass2"));
+        var user3 = userRepository.save(new User(0, "Third User", "same@example.com", "pass3"));
+
+        assertThat(user1).isPresent();
+        assertThat(user2).isEmpty();
+        assertThat(user3).isEmpty();
+
+        // Проверяем, что в базе остался только первый пользователь
+        Optional<User> found = userRepository.findByEmailAndPassword("same@example.com", "pass1");
+        assertThat(found).isPresent();
+        assertThat(found.get().getFullName()).isEqualTo("First User");
     }
 }

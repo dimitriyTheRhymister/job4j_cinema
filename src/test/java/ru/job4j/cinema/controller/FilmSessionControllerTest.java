@@ -7,7 +7,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 import ru.job4j.cinema.model.Film;
 import ru.job4j.cinema.model.FilmSession;
-import ru.job4j.cinema.service.FilmSessionService;
+import ru.job4j.cinema.service.session.FilmSessionService;
 
 import java.time.LocalDateTime;
 import java.util.List;

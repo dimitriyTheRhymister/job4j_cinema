@@ -6,7 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.job4j.cinema.model.User;
-import ru.job4j.cinema.service.UserService;
+import ru.job4j.cinema.service.user.UserService;
 
 @Controller
 @RequestMapping("/users")
@@ -34,21 +34,12 @@ public class UserController {
         guest.setFullName("Гость");
         model.addAttribute("user", guest);
 
-        try {
-            var savedUser = userService.save(user);
-            if (savedUser.isEmpty()) {
-                model.addAttribute("message", "Пользователь с таким email уже существует");
-                return "errors/404";
-            }
-            return "redirect:/users/login";
-        } catch (Exception exception) {
-            if (exception.getMessage().contains("users_email_key")) {
-                model.addAttribute("message", "Пользователь с таким email уже существует.");
-            } else {
-                model.addAttribute("message", "Произошла ошибка при регистрации.");
-            }
+        var savedUser = userService.save(user);
+        if (savedUser.isEmpty()) {
+            model.addAttribute("message", "Пользователь с таким email уже существует");
             return "errors/404";
         }
+        return "redirect:/users/login";
     }
 
     @GetMapping("/login")
@@ -70,7 +61,6 @@ public class UserController {
     }
 
     @GetMapping("/logout")
-    @PostMapping("/logout")
     public String logout(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (session != null) {
