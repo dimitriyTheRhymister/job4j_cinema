@@ -1,5 +1,7 @@
 package ru.job4j.cinema.repository.ticket;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 import org.sql2o.Sql2o;
 import ru.job4j.cinema.dto.TicketWithDetails;
@@ -17,6 +19,7 @@ import java.util.Optional;
 @Repository
 public class Sql2oTicketRepository implements TicketRepository {
 
+    private static final Logger LOG = LoggerFactory.getLogger(Sql2oTicketRepository.class);
     private final Sql2o sql2o;
 
     public Sql2oTicketRepository(Sql2o sql2o) {
@@ -41,9 +44,6 @@ public class Sql2oTicketRepository implements TicketRepository {
 
     @Override
     public boolean reserveTicket(int sessionId, int rowNumber, int placeNumber, int userId) {
-        if (findBySessionIdAndRowAndPlace(sessionId, rowNumber, placeNumber).isPresent()) {
-            return false;
-        }
         try (var connection = sql2o.open()) {
             var sql = """
                     INSERT INTO tickets(session_id, row_number, place_number, user_id)
@@ -56,6 +56,8 @@ public class Sql2oTicketRepository implements TicketRepository {
                     .addParameter("userId", userId);
             return query.executeUpdate().getResult() > 0;
         } catch (Exception e) {
+            LOG.error("Failed to reserve ticket: sessionId={}, row={}, place={}, userId={}",
+                    sessionId, rowNumber, placeNumber, userId, e);
             return false;
         }
     }
