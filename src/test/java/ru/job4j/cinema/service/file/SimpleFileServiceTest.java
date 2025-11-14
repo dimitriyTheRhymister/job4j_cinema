@@ -48,12 +48,16 @@ class SimpleFileServiceTest {
         savedFile.setPath(tempDir + "/uuid_test.txt");
     }
 
-    @Test
     /**
  * Тестирует сценарий: успешное выполнение при save_ when valid file dto_ should save file and return entity
  * 
  * @see #save_WhenValidFileDto_ShouldSaveFileAndReturnEntity()
  */
+
+
+    @Test
+
+
     void save_WhenValidFileDto_ShouldSaveFileAndReturnEntity() throws IOException {
         when(fileRepository.save(any(File.class))).thenAnswer(invocation -> {
             File fileArg = invocation.getArgument(0);
@@ -76,12 +80,16 @@ class SimpleFileServiceTest {
         verify(fileRepository, times(1)).save(any(File.class));
     }
 
-    @Test
     /**
  * Тестирует сценарий: обработку исключения при save_ when directory creation fails_ should throw runtime exception
  * 
  * @see #save_WhenDirectoryCreationFails_ShouldThrowRuntimeException()
  */
+
+
+    @Test
+
+
     void save_WhenDirectoryCreationFails_ShouldThrowRuntimeException() {
         String invalidPath;
         if (System.getProperty("os.name").toLowerCase().contains("win")) {
@@ -99,12 +107,16 @@ class SimpleFileServiceTest {
         verify(fileRepository, never()).save(any(ru.job4j.cinema.model.File.class));
     }
 
-    @Test
     /**
  * Тестирует сценарий: успешное выполнение при get file by id_ when file exists_ should return file dto
  * 
  * @see #getFileById_WhenFileExists_ShouldReturnFileDto()
  */
+
+
+    @Test
+
+
     void getFileById_WhenFileExists_ShouldReturnFileDto() throws IOException {
         Files.write(Path.of(savedFile.getPath()), testFileDto.getContent());
         when(fileRepository.findById(1)).thenReturn(Optional.of(savedFile));
@@ -117,12 +129,16 @@ class SimpleFileServiceTest {
         verify(fileRepository, times(1)).findById(1);
     }
 
-    @Test
     /**
  * Тестирует сценарий: успешное выполнение при get file by id_ when file not exists in database_ should return empty
  * 
  * @see #getFileById_WhenFileNotExistsInDatabase_ShouldReturnEmpty()
  */
+
+
+    @Test
+
+
     void getFileById_WhenFileNotExistsInDatabase_ShouldReturnEmpty() {
         when(fileRepository.findById(1)).thenReturn(Optional.empty());
 
@@ -132,12 +148,16 @@ class SimpleFileServiceTest {
         verify(fileRepository, times(1)).findById(1);
     }
 
-    @Test
     /**
  * Тестирует сценарий: успешное выполнение при get file by id_ when file exists but physical file missing_ should throw runtime exception
  * 
  * @see #getFileById_WhenFileExistsButPhysicalFileMissing_ShouldThrowRuntimeException()
  */
+
+
+    @Test
+
+
     void getFileById_WhenFileExistsButPhysicalFileMissing_ShouldThrowRuntimeException() {
         when(fileRepository.findById(1)).thenReturn(Optional.of(savedFile));
 
@@ -148,12 +168,16 @@ class SimpleFileServiceTest {
         verify(fileRepository, times(1)).findById(1);
     }
 
-    @Test
     /**
  * Тестирует сценарий: get file by id_ with different ids_ should work correctly
  * 
  * @see #getFileById_WithDifferentIds_ShouldWorkCorrectly()
  */
+
+
+    @Test
+
+
     void getFileById_WithDifferentIds_ShouldWorkCorrectly() throws IOException {
         File anotherFile = new File();
         anotherFile.setId(2);
@@ -172,12 +196,16 @@ class SimpleFileServiceTest {
         assertThat(result.get().getContent()).isEqualTo(anotherContent);
     }
 
-    @Test
     /**
  * Тестирует сценарий: save_ should generate unique file name
  * 
  * @see #save_ShouldGenerateUniqueFileName()
  */
+
+
+    @Test
+
+
     void save_ShouldGenerateUniqueFileName() {
         when(fileRepository.save(any(File.class))).thenReturn(savedFile);
 
@@ -189,12 +217,16 @@ class SimpleFileServiceTest {
         verify(fileRepository, times(1)).save(any(File.class));
     }
 
-    @Test
     /**
  * Тестирует сценарий: save_ multiple files_ should generate different names
  * 
  * @see #save_MultipleFiles_ShouldGenerateDifferentNames()
  */
+
+
+    @Test
+
+
     void save_MultipleFiles_ShouldGenerateDifferentNames() {
         File firstFile = new File();
         firstFile.setId(1);
@@ -218,12 +250,16 @@ class SimpleFileServiceTest {
         verify(fileRepository, times(2)).save(any(File.class));
     }
 
-    @Test
     /**
  * Тестирует сценарий: поведение с пустыми данными при save_ when empty content_ should complete without errors
  * 
  * @see #save_WhenEmptyContent_ShouldCompleteWithoutErrors()
  */
+
+
+    @Test
+
+
     void save_WhenEmptyContent_ShouldCompleteWithoutErrors() {
         FileDto emptyFileDto = new FileDto("empty.txt", new byte[0]);
         when(fileRepository.save(any(File.class))).thenReturn(savedFile);
@@ -236,12 +272,16 @@ class SimpleFileServiceTest {
         verify(fileRepository, times(1)).save(any(File.class));
     }
 
-    @Test
     /**
  * Тестирует сценарий: обработку ошибки при get file by id_ with invalid ids_ should return empty or throw
  * 
  * @see #getFileById_WithInvalidIds_ShouldReturnEmptyOrThrow()
  */
+
+
+    @Test
+
+
     void getFileById_WithInvalidIds_ShouldReturnEmptyOrThrow() {
         when(fileRepository.findById(-1)).thenReturn(Optional.empty());
         when(fileRepository.findById(0)).thenReturn(Optional.empty());

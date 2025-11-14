@@ -65,12 +65,16 @@ class Sql2oGenreRepositoryTest {
         }
     }
 
-    @Test
     /**
  * Тестирует сценарий: успешное выполнение при find by id exists_then return genre
  * 
  * @see #whenFindByIdExists_thenReturnGenre()
  */
+
+
+    @Test
+
+
     void whenFindByIdExists_thenReturnGenre() {
         Optional<Genre> found = genreRepository.findById(1);
 
@@ -80,45 +84,61 @@ class Sql2oGenreRepositoryTest {
         assertThat(genre.getName()).isEqualTo("Action");
     }
 
-    @Test
     /**
  * Тестирует сценарий: успешное выполнение при find by id not exists_then return empty
  * 
  * @see #whenFindByIdNotExists_thenReturnEmpty()
  */
+
+
+    @Test
+
+
     void whenFindByIdNotExists_thenReturnEmpty() {
         Optional<Genre> found = genreRepository.findById(999);
         assertThat(found).isEmpty();
     }
 
-    @Test
     /**
  * Тестирует сценарий: поведение с пустыми данными при find by id zero_then return empty
  * 
  * @see #whenFindByIdZero_thenReturnEmpty()
  */
+
+
+    @Test
+
+
     void whenFindByIdZero_thenReturnEmpty() {
         Optional<Genre> found = genreRepository.findById(0);
         assertThat(found).isEmpty();
     }
 
-    @Test
     /**
  * Тестирует сценарий: поведение с пустыми данными при find by id negative_then return empty
  * 
  * @see #whenFindByIdNegative_thenReturnEmpty()
  */
+
+
+    @Test
+
+
     void whenFindByIdNegative_thenReturnEmpty() {
         Optional<Genre> found = genreRepository.findById(-1);
         assertThat(found).isEmpty();
     }
 
-    @Test
     /**
  * Тестирует сценарий: корректность возвращаемых данных при find different genres_then return correct data
  * 
  * @see #whenFindDifferentGenres_thenReturnCorrectData()
  */
+
+
+    @Test
+
+
     void whenFindDifferentGenres_thenReturnCorrectData() {
         Optional<Genre> comedy = genreRepository.findById(2);
         assertThat(comedy).isPresent();
@@ -133,12 +153,16 @@ class Sql2oGenreRepositoryTest {
         assertThat(sciFi.get().getName()).isEqualTo("Sci-Fi");
     }
 
-    @Test
     /**
  * Тестирует сценарий: корректность возвращаемых данных при find last genre_then return horror
  * 
  * @see #whenFindLastGenre_thenReturnHorror()
  */
+
+
+    @Test
+
+
     void whenFindLastGenre_thenReturnHorror() {
         Optional<Genre> found = genreRepository.findById(5);
 
@@ -148,12 +172,16 @@ class Sql2oGenreRepositoryTest {
         assertThat(genre.getName()).isEqualTo("Horror");
     }
 
-    @Test
     /**
  * Тестирует сценарий: find by id_then all fields mapped correctly
  * 
  * @see #whenFindById_thenAllFieldsMappedCorrectly()
  */
+
+
+    @Test
+
+
     void whenFindById_thenAllFieldsMappedCorrectly() {
         Optional<Genre> found = genreRepository.findById(1);
 
@@ -165,12 +193,16 @@ class Sql2oGenreRepositoryTest {
         assertThat(genre.getName()).isNotBlank();
     }
 
-    @Test
     /**
  * Тестирует сценарий: поведение с пустыми данными при find by id after clear_then return empty
  * 
  * @see #whenFindByIdAfterClear_thenReturnEmpty()
  */
+
+
+    @Test
+
+
     void whenFindByIdAfterClear_thenReturnEmpty() {
         clearTables();
 

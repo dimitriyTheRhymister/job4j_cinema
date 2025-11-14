@@ -28,12 +28,16 @@ class FilmSessionControllerTest {
     private final LocalDateTime testStartTime = LocalDateTime.of(2023, 12, 1, 18, 0);
     private final LocalDateTime testEndTime = LocalDateTime.of(2023, 12, 1, 20, 0);
 
-    @Test
     /**
  * Тестирует сценарий: корректность возвращаемых данных при get all_then return sessions list view
  * 
  * @see #whenGetAll_thenReturnSessionsListView()
  */
+
+
+    @Test
+
+
     void whenGetAll_thenReturnSessionsListView() throws Exception {
         Film film = new Film(1, "Inception", "Description", 2010, 1, 16, 148, 1);
         FilmSession session = new FilmSession(1, 1, 1, testStartTime, testEndTime, 500, film);

@@ -25,12 +25,16 @@ class FilmControllerTest {
         mockMvc = MockMvcBuilders.standaloneSetup(new FilmController(filmService)).build();
     }
 
-    @Test
     /**
  * Тестирует сценарий: корректность возвращаемых данных при get all_then return films list view
  * 
  * @see #whenGetAll_thenReturnFilmsListView()
  */
+
+
+    @Test
+
+
     void whenGetAll_thenReturnFilmsListView() throws Exception {
         mockMvc.perform(get("/films"))
                 .andExpect(status().isOk())
@@ -40,12 +44,16 @@ class FilmControllerTest {
         verify(filmService).findAll();
     }
 
-    @Test
     /**
  * Тестирует сценарий: успешное выполнение при get by id exists_then return one film view
  * 
  * @see #whenGetByIdExists_thenReturnOneFilmView()
  */
+
+
+    @Test
+
+
     void whenGetByIdExists_thenReturnOneFilmView() throws Exception {
         Film film = new Film(1, "Inception", "Dreams", 2010, 1, 16, 148, 1);
         film.setGenre(new Genre(1, "Sci-Fi"));
@@ -59,12 +67,16 @@ class FilmControllerTest {
         verify(filmService).findById(1);
     }
 
-    @Test
     /**
  * Тестирует сценарий: успешное выполнение при get by id not exists_then show404 with error
  * 
  * @see #whenGetByIdNotExists_thenShow404WithError()
  */
+
+
+    @Test
+
+
     void whenGetByIdNotExists_thenShow404WithError() throws Exception {
         when(filmService.findById(999)).thenReturn(Optional.empty());
 
@@ -76,24 +88,32 @@ class FilmControllerTest {
         verify(filmService).findById(999);
     }
 
-    @Test
     /**
  * Тестирует сценарий: get by negative id_then show404
  * 
  * @see #whenGetByNegativeId_thenShow404()
  */
+
+
+    @Test
+
+
     void whenGetByNegativeId_thenShow404() throws Exception {
         mockMvc.perform(get("/films/-1"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("errors/404"));
     }
 
-    @Test
     /**
  * Тестирует сценарий: get all_then service find all called once
  * 
  * @see #whenGetAll_thenServiceFindAllCalledOnce()
  */
+
+
+    @Test
+
+
     void whenGetAll_thenServiceFindAllCalledOnce() throws Exception {
         mockMvc.perform(get("/films"));
 

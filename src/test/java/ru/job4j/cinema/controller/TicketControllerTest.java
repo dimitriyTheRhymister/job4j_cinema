@@ -42,12 +42,16 @@ class TicketControllerTest {
         session = mock(HttpSession.class);
     }
 
-    @Test
     /**
  * Тестирует сценарий: успешное выполнение при show buy page with valid session then return buy view
  * 
  * @see #whenShowBuyPageWithValidSessionThenReturnBuyView()
  */
+
+
+    @Test
+
+
     void whenShowBuyPageWithValidSessionThenReturnBuyView() {
         FilmSession filmSession = new FilmSession(1, 1, 1,
                 LocalDateTime.now(), LocalDateTime.now().plusHours(2), 500);
@@ -66,12 +70,16 @@ class TicketControllerTest {
         assertThat(result).isEqualTo("tickets/buy");
     }
 
-    @Test
     /**
  * Тестирует сценарий: обработку ошибки при show buy page with invalid session then throw exception
  * 
  * @see #whenShowBuyPageWithInvalidSessionThenThrowException()
  */
+
+
+    @Test
+
+
     void whenShowBuyPageWithInvalidSessionThenThrowException() {
         when(filmSessionService.findById(1)).thenReturn(Optional.empty());
 
@@ -80,12 +88,16 @@ class TicketControllerTest {
                 .hasMessage("Session not found");
     }
 
-    @Test
     /**
  * Тестирует сценарий: обработку ошибки при show buy page with invalid film then throw exception
  * 
  * @see #whenShowBuyPageWithInvalidFilmThenThrowException()
  */
+
+
+    @Test
+
+
     void whenShowBuyPageWithInvalidFilmThenThrowException() {
         FilmSession filmSession = new FilmSession(1, 1, 1,
                 LocalDateTime.now(), LocalDateTime.now().plusHours(2), 500);
@@ -98,12 +110,16 @@ class TicketControllerTest {
                 .hasMessage("Film not found");
     }
 
-    @Test
     /**
  * Тестирует сценарий: обработку ошибки при show buy page with invalid hall then throw exception
  * 
  * @see #whenShowBuyPageWithInvalidHallThenThrowException()
  */
+
+
+    @Test
+
+
     void whenShowBuyPageWithInvalidHallThenThrowException() {
         FilmSession filmSession = new FilmSession(1, 1, 1,
                 LocalDateTime.now(), LocalDateTime.now().plusHours(2), 500);
@@ -118,12 +134,16 @@ class TicketControllerTest {
                 .hasMessage("Hall not found");
     }
 
-    @Test
     /**
  * Тестирует сценарий: успешное выполнение при buy ticket with valid data and user logged in then return success
  * 
  * @see #whenBuyTicketWithValidDataAndUserLoggedInThenReturnSuccess()
  */
+
+
+    @Test
+
+
     void whenBuyTicketWithValidDataAndUserLoggedInThenReturnSuccess() {
         User user = new User(1, "John Doe", "john@example.com", "password");
         FilmSession filmSession = new FilmSession(1, 1, 1,
@@ -145,12 +165,16 @@ class TicketControllerTest {
         assertThat(result).isEqualTo("tickets/success");
     }
 
-    @Test
     /**
  * Тестирует сценарий: корректность возвращаемых данных при get user tickets with user logged in then return mine view
  * 
  * @see #whenGetUserTicketsWithUserLoggedInThenReturnMineView()
  */
+
+
+    @Test
+
+
     void whenGetUserTicketsWithUserLoggedInThenReturnMineView() {
         User user = new User(1, "John Doe", "john@example.com", "password");
         Ticket ticket = new Ticket(1, 1, 2, 3, 1);
@@ -175,12 +199,16 @@ class TicketControllerTest {
         assertThat(result).isEqualTo("tickets/mine");
     }
 
-    @Test
     /**
  * Тестирует сценарий: поведение с пустыми данными при get user tickets with no tickets then return empty list
  * 
  * @see #whenGetUserTicketsWithNoTicketsThenReturnEmptyList()
  */
+
+
+    @Test
+
+
     void whenGetUserTicketsWithNoTicketsThenReturnEmptyList() {
         User user = new User(1, "John Doe", "john@example.com", "password");
 
@@ -194,12 +222,16 @@ class TicketControllerTest {
         assertThat(result).isEqualTo("tickets/mine");
     }
 
-    @Test
     /**
  * Тестирует сценарий: get user tickets with partial data then handle gracefully
  * 
  * @see #whenGetUserTicketsWithPartialDataThenHandleGracefully()
  */
+
+
+    @Test
+
+
     void whenGetUserTicketsWithPartialDataThenHandleGracefully() {
         User user = new User(1, "John Doe", "john@example.com", "password");
         Ticket ticket1 = new Ticket(1, 1, 2, 3, 1);
@@ -227,12 +259,16 @@ class TicketControllerTest {
         assertThat(result).isEqualTo("tickets/mine");
     }
 
-    @Test
     /**
  * Тестирует сценарий: get user tickets with missing film data then handle gracefully
  * 
  * @see #whenGetUserTicketsWithMissingFilmDataThenHandleGracefully()
  */
+
+
+    @Test
+
+
     void whenGetUserTicketsWithMissingFilmDataThenHandleGracefully() {
         User user = new User(1, "John Doe", "john@example.com", "password");
         Ticket ticket = new Ticket(1, 1, 2, 3, 1);
@@ -253,7 +289,16 @@ class TicketControllerTest {
         assertThat(result).isEqualTo("tickets/mine");
     }
 
+    /**
+ * Тестирует сценарий: корректность возвращаемых данных при buy ticket succeeds then return success page
+ * 
+ * @see #whenBuyTicketSucceedsThenReturnSuccessPage()
+ */
+
+
     @Test
+
+
     void whenBuyTicketSucceedsThenReturnSuccessPage() {
         User user = new User(1, "John Doe", "john@example.com", "password");
         FilmSession filmSession = new FilmSession();
@@ -278,7 +323,16 @@ class TicketControllerTest {
         assertThat(result).isEqualTo("tickets/success");
     }
 
+    /**
+ * Тестирует сценарий: обработку исключения при buy ticket and seat already taken then return error
+ * 
+ * @see #whenBuyTicketAndSeatAlreadyTakenThenReturnError()
+ */
+
+
     @Test
+
+
     void whenBuyTicketAndSeatAlreadyTakenThenReturnError() {
         User user = new User(1, "John Doe", "john@example.com", "password");
         FilmSession filmSession = new FilmSession(1, 1, 1,
@@ -298,7 +352,16 @@ class TicketControllerTest {
         assertThat(result).isEqualTo("tickets/error");
     }
 
+    /**
+ * Тестирует сценарий: обработку ошибки при buy ticket with invalid seat numbers then return error
+ * 
+ * @see #whenBuyTicketWithInvalidSeatNumbersThenReturnError()
+ */
+
+
     @Test
+
+
     void whenBuyTicketWithInvalidSeatNumbersThenReturnError() {
         User user = new User(1, "John Doe", "john@example.com", "password");
         FilmSession filmSession = new FilmSession(1, 1, 1,
@@ -318,7 +381,16 @@ class TicketControllerTest {
         assertThat(result).isEqualTo("tickets/error");
     }
 
+    /**
+ * Тестирует сценарий: обработку исключения при buy ticket fails then return error page
+ * 
+ * @see #whenBuyTicketFailsThenReturnErrorPage()
+ */
+
+
     @Test
+
+
     void whenBuyTicketFailsThenReturnErrorPage() {
         User user = new User(1, "John Doe", "john@example.com", "password");
         FilmSession filmSession = new FilmSession(1, 1, 1,
@@ -337,7 +409,16 @@ class TicketControllerTest {
         assertThat(result).isEqualTo("tickets/error");
     }
 
+    /**
+ * Тестирует сценарий: обработку исключения при buy ticket with exception then return error page
+ * 
+ * @see #whenBuyTicketWithExceptionThenReturnErrorPage()
+ */
+
+
     @Test
+
+
     void whenBuyTicketWithExceptionThenReturnErrorPage() {
         User user = new User(1, "John Doe", "john@example.com", "password");
         FilmSession filmSession = new FilmSession(1, 1, 1,
@@ -356,7 +437,16 @@ class TicketControllerTest {
         assertThat(result).isEqualTo("tickets/error");
     }
 
+    /**
+ * Тестирует сценарий: обработку исключения при buy ticket with non existent session then return error
+ * 
+ * @see #whenBuyTicketWithNonExistentSessionThenReturnError()
+ */
+
+
     @Test
+
+
     void whenBuyTicketWithNonExistentSessionThenReturnError() {
         User user = new User(1, "John Doe", "john@example.com", "password");
 
@@ -370,7 +460,16 @@ class TicketControllerTest {
         assertThat(result).isEqualTo("tickets/error");
     }
 
+    /**
+ * Тестирует сценарий: обработку исключения при buy ticket with non existent film then return error
+ * 
+ * @see #whenBuyTicketWithNonExistentFilmThenReturnError()
+ */
+
+
     @Test
+
+
     void whenBuyTicketWithNonExistentFilmThenReturnError() {
         User user = new User(1, "John Doe", "john@example.com", "password");
         FilmSession filmSession = new FilmSession(1, 1, 1,
@@ -387,7 +486,16 @@ class TicketControllerTest {
         assertThat(result).isEqualTo("tickets/error");
     }
 
+    /**
+ * Тестирует сценарий: успешное выполнение при buy ticket with valid data and user logged in then return success2
+ * 
+ * @see #whenBuyTicketWithValidDataAndUserLoggedInThenReturnSuccess2()
+ */
+
+
     @Test
+
+
     void whenBuyTicketWithValidDataAndUserLoggedInThenReturnSuccess2() {
         User user = new User(1, "John Doe", "john@example.com", "password");
         FilmSession filmSession = new FilmSession(1, 1, 1,
@@ -409,7 +517,16 @@ class TicketControllerTest {
         assertThat(result).isEqualTo("tickets/success");
     }
 
+    /**
+ * Тестирует сценарий: корректность возвращаемых данных при get user tickets with user logged in then return mine view2
+ * 
+ * @see #whenGetUserTicketsWithUserLoggedInThenReturnMineView2()
+ */
+
+
     @Test
+
+
     void whenGetUserTicketsWithUserLoggedInThenReturnMineView2() {
         User user = new User(1, "John Doe", "john@example.com", "password");
         Ticket ticket = new Ticket(1, 1, 2, 3, 1);

@@ -39,12 +39,16 @@ class SimpleFilmServiceTest {
         filmService = new SimpleFilmService(filmRepository, fileService, genreRepository);
     }
 
-    @Test
     /**
  * Тестирует сценарий: корректность возвращаемых данных при find by id_ when film and genre exist_ should return film with genre
  * 
  * @see #findById_WhenFilmAndGenreExist_ShouldReturnFilmWithGenre()
  */
+
+
+    @Test
+
+
     void findById_WhenFilmAndGenreExist_ShouldReturnFilmWithGenre() {
         Film film = new Film(1, "Film", "Desc", 2020, 2, 16, 120, 1);
         Genre genre = new Genre(2, "Drama");
@@ -60,12 +64,16 @@ class SimpleFilmServiceTest {
         verify(genreRepository, times(1)).findById(2);
     }
 
-    @Test
     /**
  * Тестирует сценарий: успешное выполнение при find by id_ when film exists but genre not exists_ should return film without genre
  * 
  * @see #findById_WhenFilmExistsButGenreNotExists_ShouldReturnFilmWithoutGenre()
  */
+
+
+    @Test
+
+
     void findById_WhenFilmExistsButGenreNotExists_ShouldReturnFilmWithoutGenre() {
         Film film = new Film(1, "Film", "Desc", 2020, 2, 16, 120, 1);
 
@@ -80,12 +88,16 @@ class SimpleFilmServiceTest {
         verify(genreRepository, times(1)).findById(2);
     }
 
-    @Test
     /**
  * Тестирует сценарий: успешное выполнение при find by id_ when film not exists_ should return empty
  * 
  * @see #findById_WhenFilmNotExists_ShouldReturnEmpty()
  */
+
+
+    @Test
+
+
     void findById_WhenFilmNotExists_ShouldReturnEmpty() {
         when(filmRepository.findById(999)).thenReturn(Optional.empty());
 
@@ -96,12 +108,16 @@ class SimpleFilmServiceTest {
         verify(genreRepository, never()).findById(anyInt());
     }
 
-    @Test
     /**
  * Тестирует сценарий: find all_ should load genres for all films
  * 
  * @see #findAll_ShouldLoadGenresForAllFilms()
  */
+
+
+    @Test
+
+
     void findAll_ShouldLoadGenresForAllFilms() {
         Film film1 = new Film(1, "Film A", "Desc A", 2020, 1, 12, 100, 1);
         Film film2 = new Film(2, "Film B", "Desc B", 2021, 2, 16, 120, 2);
@@ -121,12 +137,16 @@ class SimpleFilmServiceTest {
         verify(genreRepository, times(1)).findById(2);
     }
 
-    @Test
     /**
  * Тестирует сценарий: find all_ when some genres not exist_ should set available genres
  * 
  * @see #findAll_WhenSomeGenresNotExist_ShouldSetAvailableGenres()
  */
+
+
+    @Test
+
+
     void findAll_WhenSomeGenresNotExist_ShouldSetAvailableGenres() {
         Film film1 = new Film(1, "Film A", "Desc A", 2020, 1, 12, 100, 1);
         Film film2 = new Film(2, "Film B", "Desc B", 2021, 2, 16, 120, 2);
@@ -143,12 +163,16 @@ class SimpleFilmServiceTest {
         assertThat(films.stream().filter(f -> f.getId() == 2).findFirst().get().getGenre()).isNull();
     }
 
-    @Test
     /**
  * Тестирует сценарий: поведение с пустыми данными при find all_ when no films_ should return empty collection
  * 
  * @see #findAll_WhenNoFilms_ShouldReturnEmptyCollection()
  */
+
+
+    @Test
+
+
     void findAll_WhenNoFilms_ShouldReturnEmptyCollection() {
         when(filmRepository.findAll()).thenReturn(List.of());
 
@@ -159,12 +183,16 @@ class SimpleFilmServiceTest {
         verify(genreRepository, never()).findById(anyInt());
     }
 
-    @Test
     /**
  * Тестирует сценарий: обработку ошибки при find by id_ with invalid ids_ should return empty
  * 
  * @see #findById_WithInvalidIds_ShouldReturnEmpty()
  */
+
+
+    @Test
+
+
     void findById_WithInvalidIds_ShouldReturnEmpty() {
         assertThat(filmService.findById(0)).isEmpty();
         assertThat(filmService.findById(-1)).isEmpty();
@@ -174,12 +202,16 @@ class SimpleFilmServiceTest {
         verify(genreRepository, never()).findById(anyInt());
     }
 
-    @Test
     /**
  * Тестирует сценарий: find by id_ should not use file service
  * 
  * @see #findById_ShouldNotUseFileService()
  */
+
+
+    @Test
+
+
     void findById_ShouldNotUseFileService() {
         Film film = new Film(1, "Film", "Desc", 2020, 1, 16, 120, 1);
         Genre genre = new Genre(1, "Action");

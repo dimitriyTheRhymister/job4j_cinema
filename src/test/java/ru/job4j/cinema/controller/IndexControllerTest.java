@@ -8,12 +8,16 @@ class IndexControllerTest {
 
     private final IndexController indexController = new IndexController();
 
-    @Test
     /**
  * Тестирует сценарий: корректность возвращаемых данных при get index_then return index view
  * 
  * @see #whenGetIndex_thenReturnIndexView()
  */
+
+
+    @Test
+
+
     void whenGetIndex_thenReturnIndexView() {
         String viewName = indexController.getIndex();
         assertEquals("index", viewName);

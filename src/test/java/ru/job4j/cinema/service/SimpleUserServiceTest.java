@@ -23,12 +23,16 @@ class SimpleUserServiceTest {
     @InjectMocks
     private SimpleUserService userService;
 
-    @Test
     /**
  * Тестирует сценарий: успешное выполнение при save_ when user is valid_ should return saved user
  * 
  * @see #save_WhenUserIsValid_ShouldReturnSavedUser()
  */
+
+
+    @Test
+
+
     void save_WhenUserIsValid_ShouldReturnSavedUser() {
         User newUser = new User(0, "John Doe", "john@example.com", "password123");
         User savedUser = new User(1, "John Doe", "john@example.com", "password123");
@@ -43,12 +47,16 @@ class SimpleUserServiceTest {
         verify(userRepository, times(1)).save(newUser);
     }
 
-    @Test
     /**
  * Тестирует сценарий: поведение с пустыми данными при save_ when user save fails_ should return empty
  * 
  * @see #save_WhenUserSaveFails_ShouldReturnEmpty()
  */
+
+
+    @Test
+
+
     void save_WhenUserSaveFails_ShouldReturnEmpty() {
         User newUser = new User(0, "John Doe", "john@example.com", "password123");
 
@@ -60,12 +68,16 @@ class SimpleUserServiceTest {
         verify(userRepository, times(1)).save(newUser);
     }
 
-    @Test
     /**
  * Тестирует сценарий: поведение с пустыми данными при save_ when user is null_ should call repository with null
  * 
  * @see #save_WhenUserIsNull_ShouldCallRepositoryWithNull()
  */
+
+
+    @Test
+
+
     void save_WhenUserIsNull_ShouldCallRepositoryWithNull() {
         when(userRepository.save(null)).thenReturn(Optional.empty());
 
@@ -75,12 +87,16 @@ class SimpleUserServiceTest {
         verify(userRepository, times(1)).save(null);
     }
 
-    @Test
     /**
  * Тестирует сценарий: успешное выполнение при find by email and password_ when user exists_ should return user
  * 
  * @see #findByEmailAndPassword_WhenUserExists_ShouldReturnUser()
  */
+
+
+    @Test
+
+
     void findByEmailAndPassword_WhenUserExists_ShouldReturnUser() {
         User expectedUser = new User(1, "John Doe", "john@example.com", "password123");
 
@@ -94,12 +110,16 @@ class SimpleUserServiceTest {
         verify(userRepository, times(1)).findByEmailAndPassword("john@example.com", "password123");
     }
 
-    @Test
     /**
  * Тестирует сценарий: успешное выполнение при find by email and password_ when user not exists_ should return empty
  * 
  * @see #findByEmailAndPassword_WhenUserNotExists_ShouldReturnEmpty()
  */
+
+
+    @Test
+
+
     void findByEmailAndPassword_WhenUserNotExists_ShouldReturnEmpty() {
         when(userRepository.findByEmailAndPassword("nonexistent@example.com", "wrongpassword"))
                 .thenReturn(Optional.empty());
@@ -110,12 +130,16 @@ class SimpleUserServiceTest {
         verify(userRepository, times(1)).findByEmailAndPassword("nonexistent@example.com", "wrongpassword");
     }
 
-    @Test
     /**
  * Тестирует сценарий: поведение с пустыми данными при find by email and password_ with null credentials_ should return empty
  * 
  * @see #findByEmailAndPassword_WithNullCredentials_ShouldReturnEmpty()
  */
+
+
+    @Test
+
+
     void findByEmailAndPassword_WithNullCredentials_ShouldReturnEmpty() {
         when(userRepository.findByEmailAndPassword(null, null)).thenReturn(Optional.empty());
 
@@ -125,12 +149,16 @@ class SimpleUserServiceTest {
         verify(userRepository, times(1)).findByEmailAndPassword(null, null);
     }
 
-    @Test
     /**
  * Тестирует сценарий: поведение с пустыми данными при find by email and password_ with empty credentials_ should return empty
  * 
  * @see #findByEmailAndPassword_WithEmptyCredentials_ShouldReturnEmpty()
  */
+
+
+    @Test
+
+
     void findByEmailAndPassword_WithEmptyCredentials_ShouldReturnEmpty() {
         when(userRepository.findByEmailAndPassword("", "")).thenReturn(Optional.empty());
 
@@ -140,12 +168,16 @@ class SimpleUserServiceTest {
         verify(userRepository, times(1)).findByEmailAndPassword("", "");
     }
 
-    @Test
     /**
  * Тестирует сценарий: корректность возвращаемых данных при save_ should return user with generated id
  * 
  * @see #save_ShouldReturnUserWithGeneratedId()
  */
+
+
+    @Test
+
+
     void save_ShouldReturnUserWithGeneratedId() {
         User newUser = new User(0, "Jane Smith", "jane@example.com", "securepass");
         User savedUser = new User(2, "Jane Smith", "jane@example.com", "securepass");
@@ -162,12 +194,16 @@ class SimpleUserServiceTest {
         verify(userRepository, times(1)).save(newUser);
     }
 
-    @Test
     /**
  * Тестирует сценарий: find by email and password_ should be case sensitive
  * 
  * @see #findByEmailAndPassword_ShouldBeCaseSensitive()
  */
+
+
+    @Test
+
+
     void findByEmailAndPassword_ShouldBeCaseSensitive() {
         User user = new User(1, "John Doe", "john@example.com", "password123");
 
@@ -186,12 +222,16 @@ class SimpleUserServiceTest {
         verify(userRepository, times(1)).findByEmailAndPassword("john@example.com", "password123");
     }
 
-    @Test
     /**
  * Тестирует сценарий: поведение с пустыми данными при save_ with duplicate email_ should return empty
  * 
  * @see #save_WithDuplicateEmail_ShouldReturnEmpty()
  */
+
+
+    @Test
+
+
     void save_WithDuplicateEmail_ShouldReturnEmpty() {
         User duplicateUser = new User(0, "Another User", "john@example.com", "differentpass");
 
@@ -203,12 +243,16 @@ class SimpleUserServiceTest {
         verify(userRepository, times(1)).save(duplicateUser);
     }
 
-    @Test
     /**
  * Тестирует сценарий: methods_ should directly delegate to repository
  * 
  * @see #methods_ShouldDirectlyDelegateToRepository()
  */
+
+
+    @Test
+
+
     void methods_ShouldDirectlyDelegateToRepository() {
         User user = new User(0, "Test User", "test@example.com", "testpass");
         User savedUser = new User(1, "Test User", "test@example.com", "testpass");

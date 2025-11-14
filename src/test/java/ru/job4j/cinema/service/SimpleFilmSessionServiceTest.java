@@ -48,12 +48,16 @@ class SimpleFilmSessionServiceTest {
         testFilmSession = new FilmSession(1, 1, 1, startTime, endTime, 500);
     }
 
-    @Test
     /**
  * Тестирует сценарий: корректность возвращаемых данных при find by id_ when session and film exist_ should return session with film
  * 
  * @see #findById_WhenSessionAndFilmExist_ShouldReturnSessionWithFilm()
  */
+
+
+    @Test
+
+
     void findById_WhenSessionAndFilmExist_ShouldReturnSessionWithFilm() {
         when(filmSessionRepository.findById(1)).thenReturn(Optional.of(testFilmSession));
         when(filmRepository.findById(1)).thenReturn(Optional.of(testFilm));
@@ -67,12 +71,16 @@ class SimpleFilmSessionServiceTest {
         verify(filmRepository, times(1)).findById(1);
     }
 
-    @Test
     /**
  * Тестирует сценарий: успешное выполнение при find by id_ when session exists but film not exists_ should return session without film
  * 
  * @see #findById_WhenSessionExistsButFilmNotExists_ShouldReturnSessionWithoutFilm()
  */
+
+
+    @Test
+
+
     void findById_WhenSessionExistsButFilmNotExists_ShouldReturnSessionWithoutFilm() {
         when(filmSessionRepository.findById(1)).thenReturn(Optional.of(testFilmSession));
         when(filmRepository.findById(1)).thenReturn(Optional.empty());
@@ -86,12 +94,16 @@ class SimpleFilmSessionServiceTest {
         verify(filmRepository, times(1)).findById(1);
     }
 
-    @Test
     /**
  * Тестирует сценарий: успешное выполнение при find by id_ when session not exists_ should return empty
  * 
  * @see #findById_WhenSessionNotExists_ShouldReturnEmpty()
  */
+
+
+    @Test
+
+
     void findById_WhenSessionNotExists_ShouldReturnEmpty() {
         when(filmSessionRepository.findById(1)).thenReturn(Optional.empty());
 
@@ -102,12 +114,16 @@ class SimpleFilmSessionServiceTest {
         verify(filmRepository, never()).findById(anyInt());
     }
 
-    @Test
     /**
  * Тестирует сценарий: корректность возвращаемых данных при find all_ should return all sessions with films
  * 
  * @see #findAll_ShouldReturnAllSessionsWithFilms()
  */
+
+
+    @Test
+
+
     void findAll_ShouldReturnAllSessionsWithFilms() {
         FilmSession session1 = new FilmSession(1, 1, 1, startTime, endTime, 500);
         FilmSession session2 = new FilmSession(2, 1, 2, startTime.plusHours(3), endTime.plusHours(3), 600);
@@ -125,12 +141,16 @@ class SimpleFilmSessionServiceTest {
         verify(filmRepository, times(2)).findById(1);
     }
 
-    @Test
     /**
  * Тестирует сценарий: корректность возвращаемых данных при find all_ when some films not exist_ should return sessions with available films
  * 
  * @see #findAll_WhenSomeFilmsNotExist_ShouldReturnSessionsWithAvailableFilms()
  */
+
+
+    @Test
+
+
     void findAll_WhenSomeFilmsNotExist_ShouldReturnSessionsWithAvailableFilms() {
         FilmSession session1 = new FilmSession(1, 1, 1, startTime, endTime, 500);
         FilmSession session2 = new FilmSession(2, 2, 2, startTime.plusHours(3), endTime.plusHours(3), 600);
@@ -150,12 +170,16 @@ class SimpleFilmSessionServiceTest {
         verify(filmRepository, times(1)).findById(2);
     }
 
-    @Test
     /**
  * Тестирует сценарий: поведение с пустыми данными при find all_ when no sessions_ should return empty collection
  * 
  * @see #findAll_WhenNoSessions_ShouldReturnEmptyCollection()
  */
+
+
+    @Test
+
+
     void findAll_WhenNoSessions_ShouldReturnEmptyCollection() {
         when(filmSessionRepository.findAll()).thenReturn(List.of());
 
@@ -166,12 +190,16 @@ class SimpleFilmSessionServiceTest {
         verify(filmRepository, never()).findById(anyInt());
     }
 
-    @Test
     /**
  * Тестирует сценарий: обработку ошибки при find by id_ with invalid ids_ should return empty
  * 
  * @see #findById_WithInvalidIds_ShouldReturnEmpty()
  */
+
+
+    @Test
+
+
     void findById_WithInvalidIds_ShouldReturnEmpty() {
         assertThat(filmSessionService.findById(0)).isEmpty();
         assertThat(filmSessionService.findById(-1)).isEmpty();
@@ -181,12 +209,16 @@ class SimpleFilmSessionServiceTest {
         verify(filmRepository, never()).findById(anyInt());
     }
 
-    @Test
     /**
  * Тестирует сценарий: find by id_ when session found_ should preserve time data
  * 
  * @see #findById_WhenSessionFound_ShouldPreserveTimeData()
  */
+
+
+    @Test
+
+
     void findById_WhenSessionFound_ShouldPreserveTimeData() {
         when(filmSessionRepository.findById(1)).thenReturn(Optional.of(testFilmSession));
         when(filmRepository.findById(1)).thenReturn(Optional.of(testFilm));

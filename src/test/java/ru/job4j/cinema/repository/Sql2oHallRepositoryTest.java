@@ -66,12 +66,16 @@ class Sql2oHallRepositoryTest {
         }
     }
 
-    @Test
     /**
  * Тестирует сценарий: успешное выполнение при find by id exists_then return hall
  * 
  * @see #whenFindByIdExists_thenReturnHall()
  */
+
+
+    @Test
+
+
     void whenFindByIdExists_thenReturnHall() {
         Optional<Hall> found = hallRepository.findById(1);
 
@@ -84,45 +88,61 @@ class Sql2oHallRepositoryTest {
         assertThat(hall.getDescription()).isEqualTo("Main cinema hall with comfortable seats");
     }
 
-    @Test
     /**
  * Тестирует сценарий: успешное выполнение при find by id not exists_then return empty
  * 
  * @see #whenFindByIdNotExists_thenReturnEmpty()
  */
+
+
+    @Test
+
+
     void whenFindByIdNotExists_thenReturnEmpty() {
         Optional<Hall> found = hallRepository.findById(999);
         assertThat(found).isEmpty();
     }
 
-    @Test
     /**
  * Тестирует сценарий: поведение с пустыми данными при find by id zero_then return empty
  * 
  * @see #whenFindByIdZero_thenReturnEmpty()
  */
+
+
+    @Test
+
+
     void whenFindByIdZero_thenReturnEmpty() {
         Optional<Hall> found = hallRepository.findById(0);
         assertThat(found).isEmpty();
     }
 
-    @Test
     /**
  * Тестирует сценарий: поведение с пустыми данными при find by id negative_then return empty
  * 
  * @see #whenFindByIdNegative_thenReturnEmpty()
  */
+
+
+    @Test
+
+
     void whenFindByIdNegative_thenReturnEmpty() {
         Optional<Hall> found = hallRepository.findById(-1);
         assertThat(found).isEmpty();
     }
 
-    @Test
     /**
  * Тестирует сценарий: корректность возвращаемых данных при find different halls_then return correct data
  * 
  * @see #whenFindDifferentHalls_thenReturnCorrectData()
  */
+
+
+    @Test
+
+
     void whenFindDifferentHalls_thenReturnCorrectData() {
         Optional<Hall> vipHall = hallRepository.findById(2);
         assertThat(vipHall).isPresent();
@@ -139,12 +159,16 @@ class Sql2oHallRepositoryTest {
         assertThat(smallHall.get().getDescription()).isEqualTo("Small hall for private screenings");
     }
 
-    @Test
     /**
  * Тестирует сценарий: find by id_then all fields mapped correctly
  * 
  * @see #whenFindById_thenAllFieldsMappedCorrectly()
  */
+
+
+    @Test
+
+
     void whenFindById_thenAllFieldsMappedCorrectly() {
         Optional<Hall> found = hallRepository.findById(1);
 
@@ -161,12 +185,16 @@ class Sql2oHallRepositoryTest {
         assertThat(totalSeats).isEqualTo(150);
     }
 
-    @Test
     /**
  * Тестирует сценарий: поведение с пустыми данными при find by id after clear_then return empty
  * 
  * @see #whenFindByIdAfterClear_thenReturnEmpty()
  */
+
+
+    @Test
+
+
     void whenFindByIdAfterClear_thenReturnEmpty() {
         clearTables();
 
@@ -174,12 +202,16 @@ class Sql2oHallRepositoryTest {
         assertThat(found).isEmpty();
     }
 
-    @Test
     /**
  * Тестирует сценарий: find halls_then capacity calculated correctly
  * 
  * @see #whenFindHalls_thenCapacityCalculatedCorrectly()
  */
+
+
+    @Test
+
+
     void whenFindHalls_thenCapacityCalculatedCorrectly() {
         Optional<Hall> mainHall = hallRepository.findById(1);
         Optional<Hall> vipHall = hallRepository.findById(2);
@@ -194,12 +226,16 @@ class Sql2oHallRepositoryTest {
         assertThat(smallHall.get().getRowCount() * smallHall.get().getPlaceCount()).isEqualTo(60);
     }
 
-    @Test
     /**
  * Тестирует сценарий: find halls_then each has unique characteristics
  * 
  * @see #whenFindHalls_thenEachHasUniqueCharacteristics()
  */
+
+
+    @Test
+
+
     void whenFindHalls_thenEachHasUniqueCharacteristics() {
         Optional<Hall> mainHall = hallRepository.findById(1);
         Optional<Hall> vipHall = hallRepository.findById(2);

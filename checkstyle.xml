@@ -21,6 +21,14 @@
 
     <module name="TreeWalker">
 
+        <!-- Checks for Javadoc comments                     -->
+        <!-- Простая проверка JavaDoc для тестовых методов -->
+        <module name="JavadocMethod">
+            <property name="allowMissingParamTags" value="true"/>
+            <property name="allowMissingReturnTag" value="true"/>
+            <property name="validateThrows" value="false"/>
+        </module>
+
         <!-- Checks for comments -->
         <module name="RegexpSinglelineJava">
             <property name="format" value="//.*"/>

@@ -71,12 +71,16 @@ class Sql2oFilmRepositoryTest {
         }
     }
 
-    @Test
     /**
  * Тестирует сценарий: успешное выполнение при find by id exists_then return film
  * 
  * @see #whenFindByIdExists_thenReturnFilm()
  */
+
+
+    @Test
+
+
     void whenFindByIdExists_thenReturnFilm() {
         Optional<Film> found = filmRepository.findById(1);
 
@@ -92,45 +96,61 @@ class Sql2oFilmRepositoryTest {
         assertThat(film.getFileId()).isEqualTo(1);
     }
 
-    @Test
     /**
  * Тестирует сценарий: успешное выполнение при find by id not exists_then return empty
  * 
  * @see #whenFindByIdNotExists_thenReturnEmpty()
  */
+
+
+    @Test
+
+
     void whenFindByIdNotExists_thenReturnEmpty() {
         Optional<Film> found = filmRepository.findById(999);
         assertThat(found).isEmpty();
     }
 
-    @Test
     /**
  * Тестирует сценарий: поведение с пустыми данными при find by zero id_then return empty
  * 
  * @see #whenFindByZeroId_thenReturnEmpty()
  */
+
+
+    @Test
+
+
     void whenFindByZeroId_thenReturnEmpty() {
         Optional<Film> found = filmRepository.findById(0);
         assertThat(found).isEmpty();
     }
 
-    @Test
     /**
  * Тестирует сценарий: поведение с пустыми данными при find by negative id_then return empty
  * 
  * @see #whenFindByNegativeId_thenReturnEmpty()
  */
+
+
+    @Test
+
+
     void whenFindByNegativeId_thenReturnEmpty() {
         Optional<Film> found = filmRepository.findById(-1);
         assertThat(found).isEmpty();
     }
 
-    @Test
     /**
  * Тестирует сценарий: корректность возвращаемых данных при find all_then return all films
  * 
  * @see #whenFindAll_thenReturnAllFilms()
  */
+
+
+    @Test
+
+
     void whenFindAll_thenReturnAllFilms() {
         Collection<Film> films = filmRepository.findAll();
 
@@ -141,12 +161,16 @@ class Sql2oFilmRepositoryTest {
                 .containsExactlyInAnyOrder("Inception", "The Matrix", "Comedy Movie");
     }
 
-    @Test
     /**
  * Тестирует сценарий: поведение с пустыми данными при find all empty database_then return empty collection
  * 
  * @see #whenFindAllEmptyDatabase_thenReturnEmptyCollection()
  */
+
+
+    @Test
+
+
     void whenFindAllEmptyDatabase_thenReturnEmptyCollection() {
         clearTables();
 
@@ -155,12 +179,16 @@ class Sql2oFilmRepositoryTest {
         assertThat(films).isEmpty();
     }
 
-    @Test
     /**
  * Тестирует сценарий: find by id_then all fields mapped correctly
  * 
  * @see #whenFindById_thenAllFieldsMappedCorrectly()
  */
+
+
+    @Test
+
+
     void whenFindById_thenAllFieldsMappedCorrectly() {
         Optional<Film> found = filmRepository.findById(2);
 
@@ -176,12 +204,16 @@ class Sql2oFilmRepositoryTest {
         assertThat(film.getFileId()).isEqualTo(2);
     }
 
-    @Test
     /**
  * Тестирует сценарий: корректность возвращаемых данных при find last inserted film_then return correct data
  * 
  * @see #whenFindLastInsertedFilm_thenReturnCorrectData()
  */
+
+
+    @Test
+
+
     void whenFindLastInsertedFilm_thenReturnCorrectData() {
         Optional<Film> found = filmRepository.findById(3);
 

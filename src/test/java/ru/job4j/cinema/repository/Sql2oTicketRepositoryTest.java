@@ -71,12 +71,16 @@ class Sql2oTicketRepositoryTest {
         }
     }
 
-    @Test
     /**
  * Тестирует сценарий: успешное выполнение при find by session id and row and place exists_then return ticket
  * 
  * @see #whenFindBySessionIdAndRowAndPlaceExists_thenReturnTicket()
  */
+
+
+    @Test
+
+
     void whenFindBySessionIdAndRowAndPlaceExists_thenReturnTicket() {
         Optional<Ticket> found = ticketRepository.findBySessionIdAndRowAndPlace(1, 1, 1);
 
@@ -89,23 +93,31 @@ class Sql2oTicketRepositoryTest {
         assertThat(ticket.getUserId()).isEqualTo(100);
     }
 
-    @Test
     /**
  * Тестирует сценарий: успешное выполнение при find by session id and row and place not exists_then return empty
  * 
  * @see #whenFindBySessionIdAndRowAndPlaceNotExists_thenReturnEmpty()
  */
+
+
+    @Test
+
+
     void whenFindBySessionIdAndRowAndPlaceNotExists_thenReturnEmpty() {
         Optional<Ticket> found = ticketRepository.findBySessionIdAndRowAndPlace(1, 10, 10);
         assertThat(found).isEmpty();
     }
 
-    @Test
     /**
  * Тестирует сценарий: обработку ошибки при find by invalid parameters_then return empty
  * 
  * @see #whenFindByInvalidParameters_thenReturnEmpty()
  */
+
+
+    @Test
+
+
     void whenFindByInvalidParameters_thenReturnEmpty() {
         assertThat(ticketRepository.findBySessionIdAndRowAndPlace(0, 1, 1)).isEmpty();
         assertThat(ticketRepository.findBySessionIdAndRowAndPlace(1, 0, 1)).isEmpty();
@@ -113,12 +125,16 @@ class Sql2oTicketRepositoryTest {
         assertThat(ticketRepository.findBySessionIdAndRowAndPlace(-1, -1, -1)).isEmpty();
     }
 
-    @Test
     /**
  * Тестирует сценарий: reserve ticket for free place_then success
  * 
  * @see #whenReserveTicketForFreePlace_thenSuccess()
  */
+
+
+    @Test
+
+
     void whenReserveTicketForFreePlace_thenSuccess() {
         boolean isReserved = ticketRepository.reserveTicket(3, 5, 8, 800);
 
@@ -132,12 +148,16 @@ class Sql2oTicketRepositoryTest {
         assertThat(reservedTicket.get().getPlaceNumber()).isEqualTo(8);
     }
 
-    @Test
     /**
  * Тестирует сценарий: reserve ticket for occupied place_then fail
  * 
  * @see #whenReserveTicketForOccupiedPlace_thenFail()
  */
+
+
+    @Test
+
+
     void whenReserveTicketForOccupiedPlace_thenFail() {
         boolean isReserved = ticketRepository.reserveTicket(1, 1, 1, 900);
 
@@ -148,12 +168,16 @@ class Sql2oTicketRepositoryTest {
         assertThat(existingTicket.get().getUserId()).isEqualTo(100);
     }
 
-    @Test
     /**
  * Тестирует сценарий: успешное выполнение при find by user id exists_then return user tickets
  * 
  * @see #whenFindByUserIdExists_thenReturnUserTickets()
  */
+
+
+    @Test
+
+
     void whenFindByUserIdExists_thenReturnUserTickets() {
         Collection<Ticket> userTickets = ticketRepository.findByUserId(100);
 
@@ -169,34 +193,46 @@ class Sql2oTicketRepositoryTest {
                 .containsOnly(1);
     }
 
-    @Test
     /**
  * Тестирует сценарий: успешное выполнение при find by user id not exists_then return empty collection
  * 
  * @see #whenFindByUserIdNotExists_thenReturnEmptyCollection()
  */
+
+
+    @Test
+
+
     void whenFindByUserIdNotExists_thenReturnEmptyCollection() {
         Collection<Ticket> userTickets = ticketRepository.findByUserId(9999);
         assertThat(userTickets).isEmpty();
     }
 
-    @Test
     /**
  * Тестирует сценарий: обработку ошибки при find by invalid user id_then return empty collection
  * 
  * @see #whenFindByInvalidUserId_thenReturnEmptyCollection()
  */
+
+
+    @Test
+
+
     void whenFindByInvalidUserId_thenReturnEmptyCollection() {
         assertThat(ticketRepository.findByUserId(0)).isEmpty();
         assertThat(ticketRepository.findByUserId(-1)).isEmpty();
     }
 
-    @Test
     /**
  * Тестирует сценарий: reserve ticket with same session row place different users_then first wins
  * 
  * @see #whenReserveTicketWithSameSessionRowPlaceDifferentUsers_thenFirstWins()
  */
+
+
+    @Test
+
+
     void whenReserveTicketWithSameSessionRowPlaceDifferentUsers_thenFirstWins() {
         boolean firstReservation = ticketRepository.reserveTicket(50, 1, 1, 2000);
         assertThat(firstReservation).isTrue();
@@ -209,23 +245,31 @@ class Sql2oTicketRepositoryTest {
         assertThat(ticket.get().getUserId()).isEqualTo(2000);
     }
 
-    @Test
     /**
  * Тестирует сценарий: успешное выполнение при reserve ticket with minimum values_then fail because already exists
  * 
  * @see #whenReserveTicketWithMinimumValues_thenFailBecauseAlreadyExists()
  */
+
+
+    @Test
+
+
     void whenReserveTicketWithMinimumValues_thenFailBecauseAlreadyExists() {
         boolean isReserved = ticketRepository.reserveTicket(1, 1, 1, 1);
         assertThat(isReserved).isFalse();
     }
 
-    @Test
     /**
  * Тестирует сценарий: reserve ticket with new session_then success
  * 
  * @see #whenReserveTicketWithNewSession_thenSuccess()
  */
+
+
+    @Test
+
+
     void whenReserveTicketWithNewSession_thenSuccess() {
         boolean isReserved = ticketRepository.reserveTicket(999, 1, 1, 6000);
 
@@ -237,12 +281,16 @@ class Sql2oTicketRepositoryTest {
         assertThat(reserved.get().getSessionId()).isEqualTo(999);
     }
 
-    @Test
     /**
  * Тестирует сценарий: user reserves multiple tickets_then all reserved
  * 
  * @see #whenUserReservesMultipleTickets_thenAllReserved()
  */
+
+
+    @Test
+
+
     void whenUserReservesMultipleTickets_thenAllReserved() {
         boolean ticket1 = ticketRepository.reserveTicket(10, 1, 1, 7000);
         boolean ticket2 = ticketRepository.reserveTicket(10, 1, 2, 7000);
@@ -259,12 +307,16 @@ class Sql2oTicketRepositoryTest {
                 .containsExactlyInAnyOrder(1, 2, 3);
     }
 
-    @Test
     /**
  * Тестирует сценарий: reserve same place in different sessions_then both success
  * 
  * @see #whenReserveSamePlaceInDifferentSessions_thenBothSuccess()
  */
+
+
+    @Test
+
+
     void whenReserveSamePlaceInDifferentSessions_thenBothSuccess() {
         boolean session1 = ticketRepository.reserveTicket(100, 5, 5, 8000);
         boolean session2 = ticketRepository.reserveTicket(200, 5, 5, 8000);
@@ -276,12 +328,16 @@ class Sql2oTicketRepositoryTest {
         assertThat(ticketRepository.findBySessionIdAndRowAndPlace(200, 5, 5)).isPresent();
     }
 
-    @Test
     /**
  * Тестирует сценарий: поведение с пустыми данными при find by user id in empty database_then return empty
  * 
  * @see #whenFindByUserIdInEmptyDatabase_thenReturnEmpty()
  */
+
+
+    @Test
+
+
     void whenFindByUserIdInEmptyDatabase_thenReturnEmpty() {
         clearTables();
 

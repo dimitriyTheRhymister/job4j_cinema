@@ -25,12 +25,16 @@ class FileControllerTest {
         mockMvc = MockMvcBuilders.standaloneSetup(new FileController(fileService)).build();
     }
 
-    @Test
     /**
  * Тестирует сценарий: успешное выполнение при get file exists_then return file with correct headers
  * 
  * @see #whenGetFileExists_thenReturnFileWithCorrectHeaders()
  */
+
+
+    @Test
+
+
     void whenGetFileExists_thenReturnFileWithCorrectHeaders() throws Exception {
         byte[] testContent = "test image content".getBytes();
         FileDto fileDto = new FileDto("test.jpg", testContent);
@@ -46,12 +50,16 @@ class FileControllerTest {
         verify(fileService).getFileById(1);
     }
 
-    @Test
     /**
  * Тестирует сценарий: успешное выполнение при get file not exists_then return not found
  * 
  * @see #whenGetFileNotExists_thenReturnNotFound()
  */
+
+
+    @Test
+
+
     void whenGetFileNotExists_thenReturnNotFound() throws Exception {
         when(fileService.getFileById(999)).thenReturn(Optional.empty());
 
@@ -61,12 +69,16 @@ class FileControllerTest {
         verify(fileService).getFileById(999);
     }
 
-    @Test
     /**
  * Тестирует сценарий: поведение с пустыми данными при get file with empty content_then return empty file
  * 
  * @see #whenGetFileWithEmptyContent_thenReturnEmptyFile()
  */
+
+
+    @Test
+
+
     void whenGetFileWithEmptyContent_thenReturnEmptyFile() throws Exception {
         byte[] emptyContent = new byte[0];
         FileDto fileDto = new FileDto("empty.jpg", emptyContent);
@@ -82,23 +94,31 @@ class FileControllerTest {
         verify(fileService).getFileById(3);
     }
 
-    @Test
     /**
  * Тестирует сценарий: корректность возвращаемых данных при get file with negative id_then return not found
  * 
  * @see #whenGetFileWithNegativeId_thenReturnNotFound()
  */
+
+
+    @Test
+
+
     void whenGetFileWithNegativeId_thenReturnNotFound() throws Exception {
         mockMvc.perform(get("/files/-1"))
                 .andExpect(status().isNotFound());
     }
 
-    @Test
     /**
  * Тестирует сценарий: get file_then service called once
  * 
  * @see #whenGetFile_thenServiceCalledOnce()
  */
+
+
+    @Test
+
+
     void whenGetFile_thenServiceCalledOnce() throws Exception {
         byte[] content = "content".getBytes();
         when(fileService.getFileById(5)).thenReturn(Optional.of(new FileDto("test.jpg", content)));

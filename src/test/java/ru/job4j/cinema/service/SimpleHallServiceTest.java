@@ -24,12 +24,16 @@ class SimpleHallServiceTest {
     @InjectMocks
     private SimpleHallService hallService;
 
-    @Test
     /**
  * Тестирует сценарий: успешное выполнение при find by id_ when hall exists_ should return hall
  * 
  * @see #findById_WhenHallExists_ShouldReturnHall()
  */
+
+
+    @Test
+
+
     void findById_WhenHallExists_ShouldReturnHall() {
         Hall expectedHall = new Hall(1, "Main Hall", 10, 15, "Main cinema hall");
         when(hallRepository.findById(1)).thenReturn(Optional.of(expectedHall));
@@ -41,12 +45,16 @@ class SimpleHallServiceTest {
         verify(hallRepository, times(1)).findById(1);
     }
 
-    @Test
     /**
  * Тестирует сценарий: успешное выполнение при find by id_ when hall not exists_ should return empty
  * 
  * @see #findById_WhenHallNotExists_ShouldReturnEmpty()
  */
+
+
+    @Test
+
+
     void findById_WhenHallNotExists_ShouldReturnEmpty() {
         when(hallRepository.findById(1)).thenReturn(Optional.empty());
 
@@ -56,12 +64,16 @@ class SimpleHallServiceTest {
         verify(hallRepository, times(1)).findById(1);
     }
 
-    @Test
     /**
  * Тестирует сценарий: корректность возвращаемых данных при find by id_ should return same optional from repository
  * 
  * @see #findById_ShouldReturnSameOptionalFromRepository()
  */
+
+
+    @Test
+
+
     void findById_ShouldReturnSameOptionalFromRepository() {
         Hall hall = new Hall(1, "Main Hall", 10, 15, "Main hall");
         Optional<Hall> repositoryOptional = Optional.of(hall);
@@ -74,12 +86,16 @@ class SimpleHallServiceTest {
         verify(hallRepository, times(1)).findById(1);
     }
 
-    @Test
     /**
  * Тестирует сценарий: обработку ошибки при find by id_ with invalid ids_ should return empty
  * 
  * @see #findById_WithInvalidIds_ShouldReturnEmpty()
  */
+
+
+    @Test
+
+
     void findById_WithInvalidIds_ShouldReturnEmpty() {
         assertThat(hallService.findById(0)).isEmpty();
         assertThat(hallService.findById(-1)).isEmpty();
@@ -88,12 +104,16 @@ class SimpleHallServiceTest {
         verify(hallRepository, times(1)).findById(-1);
     }
 
-    @Test
     /**
  * Тестирует сценарий: успешное выполнение при find by id_ when hall exists_ should return complete hall data
  * 
  * @see #findById_WhenHallExists_ShouldReturnCompleteHallData()
  */
+
+
+    @Test
+
+
     void findById_WhenHallExists_ShouldReturnCompleteHallData() {
         Hall expectedHall = new Hall(1, "VIP Hall", 5, 8, "VIP hall with premium seats");
         when(hallRepository.findById(1)).thenReturn(Optional.of(expectedHall));

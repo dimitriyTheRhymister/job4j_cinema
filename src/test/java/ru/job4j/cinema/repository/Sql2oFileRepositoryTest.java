@@ -63,12 +63,16 @@ class Sql2oFileRepositoryTest {
         }
     }
 
-    @Test
     /**
  * Тестирует сценарий: корректность возвращаемых данных при save_then returns file with id
  * 
  * @see #whenSave_thenReturnsFileWithId()
  */
+
+
+    @Test
+
+
     void whenSave_thenReturnsFileWithId() {
         var file = new File(0, "document.pdf", "/uploads/documents/document.pdf");
 
@@ -79,12 +83,16 @@ class Sql2oFileRepositoryTest {
         assertThat(savedFile.getPath()).isEqualTo("/uploads/documents/document.pdf");
     }
 
-    @Test
     /**
  * Тестирует сценарий: успешное выполнение при find by id exists_then return file
  * 
  * @see #whenFindByIdExists_thenReturnFile()
  */
+
+
+    @Test
+
+
     void whenFindByIdExists_thenReturnFile() {
         var file = new File(0, "movie.mp4", "/uploads/videos/movie.mp4");
         var saved = fileRepository.save(file);
@@ -97,23 +105,31 @@ class Sql2oFileRepositoryTest {
         assertThat(found.get().getPath()).isEqualTo("/uploads/videos/movie.mp4");
     }
 
-    @Test
     /**
  * Тестирует сценарий: успешное выполнение при find by id not exists_then return empty
  * 
  * @see #whenFindByIdNotExists_thenReturnEmpty()
  */
+
+
+    @Test
+
+
     void whenFindByIdNotExists_thenReturnEmpty() {
         Optional<File> found = fileRepository.findById(999);
         assertThat(found).isEmpty();
     }
 
-    @Test
     /**
  * Тестирует сценарий: save multiple files_then all have unique ids
  * 
  * @see #whenSaveMultipleFiles_thenAllHaveUniqueIds()
  */
+
+
+    @Test
+
+
     void whenSaveMultipleFiles_thenAllHaveUniqueIds() {
         var file1 = fileRepository.save(new File(0, "file1.txt", "/path/to/file1.txt"));
         var file2 = fileRepository.save(new File(0, "file2.txt", "/path/to/file2.txt"));
@@ -128,12 +144,16 @@ class Sql2oFileRepositoryTest {
         assertThat(fileRepository.findById(file3.getId())).isPresent();
     }
 
-    @Test
     /**
  * Тестирует сценарий: корректность возвращаемых данных при find pre inserted file_then returns correct data
  * 
  * @see #whenFindPreInsertedFile_thenReturnsCorrectData()
  */
+
+
+    @Test
+
+
     void whenFindPreInsertedFile_thenReturnsCorrectData() {
         Optional<File> found = fileRepository.findById(1);
 
@@ -144,12 +164,16 @@ class Sql2oFileRepositoryTest {
         assertThat(result.getPath()).isEqualTo("/uploads/images/image1.jpg");
     }
 
-    @Test
     /**
  * Тестирует сценарий: save file with same name but different path_then different ids
  * 
  * @see #whenSaveFileWithSameNameButDifferentPath_thenDifferentIds()
  */
+
+
+    @Test
+
+
     void whenSaveFileWithSameNameButDifferentPath_thenDifferentIds() {
         var file1 = fileRepository.save(new File(0, "same_name.jpg", "/path1/same_name.jpg"));
         var file2 = fileRepository.save(new File(0, "same_name.jpg", "/path2/same_name.jpg"));
@@ -162,46 +186,62 @@ class Sql2oFileRepositoryTest {
         assertThat(file1.getName()).isEqualTo(file2.getName());
     }
 
-    @Test
     /**
  * Тестирует сценарий: поведение с пустыми данными при find by zero id_then return empty
  * 
  * @see #whenFindByZeroId_thenReturnEmpty()
  */
+
+
+    @Test
+
+
     void whenFindByZeroId_thenReturnEmpty() {
         Optional<File> found = fileRepository.findById(0);
         assertThat(found).isEmpty();
     }
 
-    @Test
     /**
  * Тестирует сценарий: поведение с пустыми данными при find by negative id_then return empty
  * 
  * @see #whenFindByNegativeId_thenReturnEmpty()
  */
+
+
+    @Test
+
+
     void whenFindByNegativeId_thenReturnEmpty() {
         Optional<File> found = fileRepository.findById(-1);
         assertThat(found).isEmpty();
     }
 
-    @Test
     /**
  * Тестирует сценарий: save after pre inserted data_then id continues sequence
  * 
  * @see #whenSaveAfterPreInsertedData_thenIdContinuesSequence()
  */
+
+
+    @Test
+
+
     void whenSaveAfterPreInsertedData_thenIdContinuesSequence() {
         var newFile = fileRepository.save(new File(0, "new_file.jpg", "/path/new_file.jpg"));
 
         assertThat(newFile.getId()).isEqualTo(3);
     }
 
-    @Test
     /**
  * Тестирует сценарий: find by id_then all fields mapped correctly
- * 
+ *
  * @see #whenFindById_thenAllFieldsMappedCorrectly()
  */
+
+
+    @Test
+
+
     void whenFindById_thenAllFieldsMappedCorrectly() {
         var originalFile = new File(0, "test.jpg", "/test/path/test.jpg");
         var savedFile = fileRepository.save(originalFile);

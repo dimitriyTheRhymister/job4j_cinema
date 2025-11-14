@@ -30,7 +30,16 @@ class UserControllerTest {
         session = mock(HttpSession.class);
     }
 
+    /**
+ * Тестирует сценарий: обработку исключения при register with duplicate email then return error page
+ * 
+ * @see #whenRegisterWithDuplicateEmailThenReturnErrorPage()
+ */
+
+
     @Test
+
+
     void whenRegisterWithDuplicateEmailThenReturnErrorPage() {
         User user = new User();
         user.setEmail("test@example.com");
@@ -48,7 +57,16 @@ class UserControllerTest {
         verify(session).invalidate();
     }
 
+    /**
+ * Тестирует сценарий: register success then redirect to login
+ * 
+ * @see #whenRegisterSuccessThenRedirectToLogin()
+ */
+
+
     @Test
+
+
     void whenRegisterSuccessThenRedirectToLogin() {
         User user = new User();
         user.setEmail("test@example.com");
@@ -71,7 +89,16 @@ class UserControllerTest {
         verify(session).invalidate();
     }
 
+    /**
+ * Тестирует сценарий: register with no existing session then proceed
+ * 
+ * @see #whenRegisterWithNoExistingSessionThenProceed()
+ */
+
+
     @Test
+
+
     void whenRegisterWithNoExistingSessionThenProceed() {
         User user = new User();
         user.setEmail("test@example.com");
@@ -95,7 +122,16 @@ class UserControllerTest {
         verify(session, never()).invalidate();
     }
 
+    /**
+ * Тестирует сценарий: login success then redirect to home
+ * 
+ * @see #whenLoginSuccessThenRedirectToHome()
+ */
+
+
     @Test
+
+
     void whenLoginSuccessThenRedirectToHome() {
         String email = "test@example.com";
         String password = "password";
@@ -116,7 +152,16 @@ class UserControllerTest {
         verify(session).setAttribute("user", user);
     }
 
+    /**
+ * Тестирует сценарий: обработку исключения при login failed then return login page with error
+ * 
+ * @see #whenLoginFailedThenReturnLoginPageWithError()
+ */
+
+
     @Test
+
+
     void whenLoginFailedThenReturnLoginPageWithError() {
         String email = "test@example.com";
         String password = "wrongpassword";
@@ -132,19 +177,46 @@ class UserControllerTest {
         verify(request, never()).getSession();
     }
 
+    /**
+ * Тестирует сценарий: корректность возвращаемых данных при get register page then return register page
+ * 
+ * @see #whenGetRegisterPageThenReturnRegisterPage()
+ */
+
+
     @Test
+
+
     void whenGetRegisterPageThenReturnRegisterPage() {
         String result = userController.getRegisterPage();
         assertThat(result).isEqualTo("users/register");
     }
 
+    /**
+ * Тестирует сценарий: корректность возвращаемых данных при get login page then return login page
+ * 
+ * @see #whenGetLoginPageThenReturnLoginPage()
+ */
+
+
     @Test
+
+
     void whenGetLoginPageThenReturnLoginPage() {
         String result = userController.getLoginPage();
         assertThat(result).isEqualTo("users/login");
     }
 
+    /**
+ * Тестирует сценарий: обработку ошибки при logout with session then invalidate and redirect
+ * 
+ * @see #whenLogoutWithSessionThenInvalidateAndRedirect()
+ */
+
+
     @Test
+
+
     void whenLogoutWithSessionThenInvalidateAndRedirect() {
         when(request.getSession(false)).thenReturn(session);
 
@@ -154,7 +226,16 @@ class UserControllerTest {
         verify(session).invalidate();
     }
 
+    /**
+ * Тестирует сценарий: logout without session then redirect
+ * 
+ * @see #whenLogoutWithoutSessionThenRedirect()
+ */
+
+
     @Test
+
+
     void whenLogoutWithoutSessionThenRedirect() {
         when(request.getSession(false)).thenReturn(null);
 
@@ -165,7 +246,16 @@ class UserControllerTest {
         verify(session, never()).invalidate();
     }
 
+    /**
+ * Тестирует сценарий: обработку исключения при register with duplicate email then return error page with guest user
+ * 
+ * @see #whenRegisterWithDuplicateEmailThenReturnErrorPageWithGuestUser()
+ */
+
+
     @Test
+
+
     void whenRegisterWithDuplicateEmailThenReturnErrorPageWithGuestUser() {
         User user = new User();
         user.setEmail("test@example.com");
